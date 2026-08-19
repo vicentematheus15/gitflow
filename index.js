@@ -55,7 +55,7 @@ function buscarTarefa(id) {
     const tarefa = listaTarefas.find(tarefa => tarefa.id === id);
 
     if (tarefa) {
-        console.log(tarefa.descricao);
+        console.log(tarefa);
     } else {
         console.log("Tarefa não encontrada.");
     }
