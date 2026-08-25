@@ -44,7 +44,7 @@ function reabrirTarefa(id) {
     const tarefa = listaTarefas.find(tarefa => tarefa.id === id);
 
     if (tarefa) {
-        tarefa.concluida = true;
+        tarefa.concluida = false;
     } else {
         console.log("Tarefa não encontrada.");
     }
