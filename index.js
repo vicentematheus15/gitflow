@@ -60,3 +60,21 @@ function buscarTarefa(id) {
         console.log("Tarefa não encontrada.");
     }
 }
+
+// Utilitário exclusivo para os testes: reseta o estado do módulo entre os casos,
+// já que `listaTarefas` é um estado compartilhado em memória (sem persistência).
+function _resetListaTarefas() {
+    listaTarefas = [];
+}
+
+export {
+    criarTarefa,
+    listarTarefas,
+    concluirTarefa,
+    excluirTarefa,
+    atualizarDescricao,
+    reabrirTarefa,
+    buscarTarefa,
+    listaTarefas,
+    _resetListaTarefas
+};
