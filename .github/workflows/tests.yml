@@ -1,7 +1,7 @@
 name: Tests
 
 on:
-  pull_requests:
+  pull_request:
   push:
     branches:
       - main
@@ -11,7 +11,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    tests:
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         
@@ -22,11 +22,11 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        uses: npm ci
+        run: npm ci
 
 
       - name: Run tests and enforce coverage
-        uses: npm run test:coverage
+        run: npm run test:coverage
 
       - name: Validate coverage report
-        uses: test -s coveage/lcov.info
+        run: test -s coveage/lcov.info
