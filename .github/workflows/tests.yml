@@ -22,11 +22,11 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        uses: npm ci
+        run: npm ci
 
 
       - name: Run tests and enforce coverage
-        uses: npm run test:coverage
+        run: npm run test:coverage
 
       - name: Validate coverage report
-        uses: test -s coveage/lcov.info
+        run: test -s coveage/lcov.info
