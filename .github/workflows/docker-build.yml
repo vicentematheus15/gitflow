@@ -1,0 +1,22 @@
+name: Docker Build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t gitflow-dev:${{ github.sha }} .
+
+      - name: Run tests inside container
+        run: docker run --rm gitflow-dev:${{ github.sha }}
