@@ -19,4 +19,4 @@ jobs:
         run: docker build -t gitflow-dev:${{ github.sha }} .
 
       - name: Run tests inside container
-        run: docker run --rm gitflow-dev:${{ github.sha }}
+        run: docker run --rm gitflow-dev:${{ github.sha }} npm test

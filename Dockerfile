@@ -5,9 +5,11 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
-COPY index.js ./
+COPY src ./src
 COPY test ./test
 
-ENV NODE_ENV=test
+ENV NODE_ENV=production
 
-CMD ["npm", "test"]
+EXPOSE 3000
+
+CMD ["npm", "start"]
