@@ -1,83 +1,69 @@
-let listaTarefas = [];
+class ListaTarefas {
+  constructor() {
+    this.tarefas = [];
+    this.proximoId = 1;
+  }
 
-function criarTarefa(descricao) {
+  criarTarefa(descricao) {
+    if (typeof descricao !== "string" || descricao.trim() === "") {
+      throw new Error("A descrição da tarefa é obrigatória.");
+    }
+
     const novaTarefa = {
-    id: listaTarefas.length + 1,
-    descricao: descricao,
-    concluida: false 
-};
+      id: this.proximoId++,
+      descricao: descricao.trim(),
+      concluida: false
+    };
 
-listaTarefas.push(novaTarefa);
-};
+    this.tarefas.push(novaTarefa);
+    return novaTarefa;
+  }
 
+  listarTarefas() {
+    return this.tarefas;
+  }
 
-function listarTarefas() {
-    console.log(listaTarefas);
-}
+  buscarTarefa(id) {
+    const tarefa = this.tarefas.find(tarefa => tarefa.id === id);
 
-function concluirTarefa(id) {
-    const tarefa = listaTarefas.find(tarefa => tarefa.id === id);
-
-    if (tarefa) {
-        tarefa.concluida = true;
-    } else {
-        console.log("Tarefa não encontrada.");
+    if (!tarefa) {
+      throw new Error("Tarefa não encontrada.");
     }
-}
 
-function excluirTarefa(id) {
-    listaTarefas = listaTarefas.filter(tarefa => tarefa.id !== id);
-}
+    return tarefa;
+  }
 
-function atualizarDescricao(id, novaDescricao) {
-    const tarefa = listaTarefas.find(tarefa => tarefa.id === id);
-
-    if (tarefa) {
-        tarefa.descricao = novaDescricao;
-    } else {
-        console.log("Tarefa não encontrada.");
+  atualizarDescricao(id, novaDescricao) {
+    if (typeof novaDescricao !== "string" || novaDescricao.trim() === "") {
+      throw new Error("A descrição da tarefa é obrigatória.");
     }
+
+    const tarefa = this.buscarTarefa(id);
+    tarefa.descricao = novaDescricao.trim();
+
+    return tarefa;
+  }
+
+  concluirTarefa(id) {
+    const tarefa = this.buscarTarefa(id);
+    tarefa.concluida = true;
+
+    return tarefa;
+  }
+
+  reabrirTarefa(id) {
+    const tarefa = this.buscarTarefa(id);
+    tarefa.concluida = false;
+
+    return tarefa;
+  }
+
+  excluirTarefa(id) {
+    const tarefa = this.buscarTarefa(id);
+    this.tarefas = this.tarefas.filter(t => t.id !== id);
+
+    return tarefa;
+  }
 }
 
-
-function reabrirTarefa(id) {
-    const tarefa = listaTarefas.find(tarefa => tarefa.id === id);
-
-    if (tarefa) {
-        tarefa.concluida = false;
-    } else {
-        console.log("Tarefa não encontrada.");
-    }
-}
-
-
-function buscarTarefa(id) {
-    const tarefa = listaTarefas.find(tarefa => tarefa.id === id);
-
-    if (tarefa) {
-        console.log(tarefa);
-    } else {
-        console.log("Tarefa não encontrada.");
-    }
-}
-
-// Utilitário exclusivo para os testes: reseta o estado do módulo entre os casos,
-// já que `listaTarefas` é um estado compartilhado em memória (sem persistência).
-function _resetListaTarefas() {
-    listaTarefas = [];
-}
-
-module.exports = {
-    criarTarefa,
-    listarTarefas,
-    concluirTarefa,
-    excluirTarefa,
-    atualizarDescricao,
-    reabrirTarefa,
-    buscarTarefa,
-    // getter, não o array em si: em CommonJS os exports não são bindings vivos
-    // como no ESM, então reatribuições de `listaTarefas` (ex.: em excluirTarefa)
-    // não seriam refletidas se exportássemos o array direto.
-    getListaTarefas: () => listaTarefas,
-    _resetListaTarefas
-};
+module.exports = ListaTarefas;
