@@ -1,8 +1,8 @@
 {
   "name": "gitflow",
   "version": "1.0.0",
-  "description": "API REST simples de lista de tarefas",
-  "main": "src/index.js",
+  "description": "API REST de lista de tarefas em camadas (routes, services, repositories) com MySQL e Docker Compose",
+  "main": "src/app.js",
   "directories": {
     "test": "test"
   },
@@ -25,9 +25,18 @@
     "collectCoverageFrom": [
       "src/**/*.js",
       "!src/server.js"
-    ]
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
   },
   "dependencies": {
-    "express": "^4.22.3"
+    "express": "^4.22.3",
+    "mysql2": "^3.24.6"
   }
 }
